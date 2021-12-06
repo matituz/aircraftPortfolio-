@@ -15,16 +15,18 @@ public class Spawner : MonoBehaviour
 
     private void Start ()
 	{
-        Invoke("Finished", timeToSpawn);
         score.Value = 0;
 	}
-    public void Finished()
+    void Update()
     {
-        SpawnPlane();
-        timeToSpawn = startTimeToSpawn * 0.99f;
-        Invoke("Finished", timeToSpawn);
+        timeToSpawn -= Time.deltaTime;
+        if (timeToSpawn <= 0)
+        {
+            SpawnPlane();
+            timeToSpawn = startTimeToSpawn * 0.99f;
+        }
     }
-        private void SpawnPlane()
+    private void SpawnPlane()
     {
         if (avaiblePlanes[0] != null)
         {
